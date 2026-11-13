@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pei-Shan Huang | AI & Full-Stack Developer 個人網站</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0b0f19;
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-nav {
+      background: rgba(11, 15, 25, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .bg-glow {
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.18) 0%, rgba(14, 165, 233, 0.08) 35%, transparent 70%);
+    }
+    .chat-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .chat-scroll::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    .chat-scroll::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.5);
+      border-radius: 9999px;
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .animate-float {
+      animation: floatSlow 3.5s ease-in-out infinite;
+    }
+    .typing-dot {
+      animation: typingBounce 1.4s infinite ease-in-out both;
+    }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Ambient Glow -->
+  <div class="fixed inset-0 bg-glow pointer-events-none z-0"></div>
+
+  <!-- Navigation -->
+  <header class="fixed top-0 inset-x-0 z-40 glass-nav">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5 font-bold text-lg tracking-tight text-white">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-slate-950 font-extrabold shadow-lg shadow-indigo-500/25">P</span>
+        <span>Pei-Shan<span class="text-indigo-400">.dev</span></span>
+      </a>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#about" class="hover:text-white transition">關於我</a>
+        <a href="#skills" class="hover:text-white transition">技術專長</a>
+        <a href="#projects" class="hover:text-white transition">精選作品</a>
+        <a href="#experience" class="hover:text-white transition">經歷</a>
+        <a href="#contact" class="hover:text-white transition">聯絡我</a>
+      </nav>
+      <button onclick="toggleChat(true)" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/30 transition flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        呼叫 AI 小客服
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="relative z-10 pt-28 pb-24">
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-6 py-16 md:py-24 flex flex-col md:flex-row items-center gap-12">
+      <div class="flex-1 space-y-6 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-card text-xs font-medium text-indigo-300 border border-indigo-500/20">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          Available for AI & Web Projects
+        </div>
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+          嗨，我是 <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-cyan-300 to-emerald-300">Pei-Shan</span><br />
+          打造結合 AI 與美學的數位體驗
+        </h1>
+        <p class="text-slate-400 text-base sm:text-lg max-w-2xl leading-relaxed">
+          熱衷於全端網頁開發、LLM 智慧代理串接與雲端自動化工作流。擅長把複雜的技術轉化為直覺、流暢且具備溫度的互動產品。右下角配備了我專屬的 <strong>OpenRouter AI 推理小客服</strong>，隨時歡迎與它聊聊！
+        </p>
+        <div class="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-2">
+          <a href="#projects" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition">
+            瀏覽作品集
+          </a>
+          <button onclick="toggleChat(true)" class="px-6 py-3 rounded-xl glass-card hover:bg-slate-800/80 text-slate-200 font-semibold text-sm transition flex items-center gap-2">
+            <span>🤖</span> 與 AI 小客服對話
+          </button>
+          <a href="https://github.com/peishanhuang33" target="_blank" rel="noopener" class="px-4 py-3 rounded-xl glass-card hover:bg-slate-800/80 text-slate-300 hover:text-white text-sm transition">
+            GitHub ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Profile Visual Card -->
+      <div class="w-full max-w-sm">
+        <div class="glass-card rounded-3xl p-6 relative overflow-hidden shadow-2xl">
+          <div class="absolute -top-16 -right-16 w-36 h-36 bg-indigo-500/20 rounded-full blur-2xl"></div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-400 p-0.5">
+              <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-2xl">
+                👩‍💻
+              </div>
+            </div>
+            <div>
+              <h2 class="text-lg font-bold text-white">黃佩珊 Pei-Shan Huang</h2>
+              <p class="text-xs text-indigo-400 font-medium">AI Application & Full-Stack Developer</p>
+              <p class="text-xs text-slate-400 mt-0.5">📍 Taipei, Taiwan</p>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 gap-3 text-center py-3 px-2 rounded-2xl bg-slate-900/60 border border-white/5 mb-5">
+            <div>
+              <div class="text-lg font-bold text-white">15+</div>
+              <div class="text-[11px] text-slate-400">完成專案</div>
+            </div>
+            <div>
+              <div class="text-lg font-bold text-cyan-400">AI</div>
+              <div class="text-[11px] text-slate-400">LLM 整合</div>
+            </div>
+            <div>
+              <div class="text-lg font-bold text-emerald-400">24/7</div>
+              <div class="text-[11px] text-slate-400">雲端自動化</div>
+            </div>
+          </div>
+          <div class="space-y-2 text-xs text-slate-300 font-mono bg-slate-950/70 p-4 rounded-xl border border-white/5">
+            <div class="text-slate-500">// Current Focus</div>
+            <div><span class="text-pink-400">const</span> <span class="text-cyan-300">stack</span> = [</div>
+            <div class="pl-4 text-amber-300">'JavaScript / TypeScript',</div>
+            <div class="pl-4 text-amber-300">'OpenRouter & Claude Reasoning',</div>
+            <div class="pl-4 text-amber-300">'Google Apps Script Serverless'</div>
+            <div>];</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">About Me</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">關於我與開發理念</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl p-6 hover:border-indigo-500/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-indigo-500/15 text-indigo-400 flex items-center justify-center text-xl mb-4">⚡</div>
+          <h3 class="text-lg font-semibold text-white mb-2">現代前端與互動體驗</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            注重介面細節與響應式設計，善用 Tailwind CSS、現代 JavaScript 與微互動動畫，打造在手機與桌機上都順暢好用的體驗。
+          </p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 hover:border-cyan-500/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center text-xl mb-4">🧠</div>
+          <h3 class="text-lg font-semibold text-white mb-2">LLM 與多輪推理應用</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            串接 OpenRouter、Claude 與多模型推理機制（Reasoning Details 狀態延續），讓 AI 不只會回答問題，更能進行深度上下文推理。
+          </p>
+        </div>
+        <div class="glass-card rounded-2xl p-6 hover:border-emerald-500/40 transition">
+          <div class="w-11 h-11 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-xl mb-4">☁️</div>
+          <h3 class="text-lg font-semibold text-white mb-2">Serverless 輕量化架構</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            結合 GitHub Pages 靜態部署與 Google Apps Script (GAS) 無伺服器後端，安全管理 API 金鑰並快速交付高可用性服務。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Tech Stack</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">技術專長</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-semibold text-indigo-300 mb-3">前端開發</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">HTML5 / CSS3</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">JavaScript (ES6+)</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Tailwind CSS</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">React / Vue</span>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-semibold text-cyan-300 mb-3">AI 與語言模型</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">OpenRouter API</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Claude Haiku 5.5</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Multi-turn Reasoning</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Prompt Engineering</span>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-semibold text-emerald-300 mb-3">後端與自動化</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Google Apps Script</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Python</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">RESTful API</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Webhook 串接</span>
+          </div>
+        </div>
+        <div class="glass-card rounded-2xl p-5">
+          <h3 class="text-sm font-semibold text-purple-300 mb-3">開發工具與部署</h3>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Git & GitHub Pages</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">MCP Server</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">VS Code</span>
+            <span class="px-3 py-1 rounded-lg bg-slate-800 text-xs text-slate-200">Figma</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Portfolio</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">精選作品集</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-indigo-500/40 transition">
+          <div>
+            <div class="h-44 bg-gradient-to-br from-fuchsia-600/30 via-indigo-600/20 to-slate-900 flex items-center justify-center text-5xl group-hover:scale-105 transition duration-300">
+              🕹️
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs text-fuchsia-400 font-medium mb-2">
+                <span>Web Game</span> • <span>GitHub Pages</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">Tetris Neon 霓虹俄羅斯方塊</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                以賽博霓虹視覺風格打造的網頁版俄羅斯方塊遊戲，支援流暢鍵盤操作、分數排行榜與動態光影特效。
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2 flex items-center gap-3">
+            <a href="https://peishanhuang33.github.io/tetris-neon/" target="_blank" rel="noopener" class="text-xs font-semibold px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white transition">
+              線上試玩 ↗
+            </a>
+            <a href="https://github.com/peishanhuang33/tetris-neon" target="_blank" rel="noopener" class="text-xs font-semibold px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition">
+              原始碼
+            </a>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-cyan-500/40 transition">
+          <div>
+            <div class="h-44 bg-gradient-to-br from-cyan-500/30 via-indigo-500/20 to-slate-900 flex items-center justify-center text-5xl group-hover:scale-105 transition duration-300">
+              🤖
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs text-cyan-400 font-medium mb-2">
+                <span>OpenRouter</span> • <span>Google Apps Script</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">AI 多輪推理智慧客服系統</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                串接 Claude Haiku 5.5 Reasoning 模型，完整保留多輪對話之 <code>reasoning_details</code>，並透過 GAS 安全保護金鑰。
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2">
+            <button onclick="toggleChat(true)" class="text-xs font-semibold px-3.5 py-2 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30 transition">
+              立即在右下角體驗 →
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-2xl overflow-hidden flex flex-col justify-between group hover:border-emerald-500/40 transition">
+          <div>
+            <div class="h-44 bg-gradient-to-br from-emerald-500/30 via-teal-500/20 to-slate-900 flex items-center justify-center text-5xl group-hover:scale-105 transition duration-300">
+              📊
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 text-xs text-emerald-400 font-medium mb-2">
+                <span>Automation</span> • <span>Workspace API</span>
+              </div>
+              <h3 class="text-lg font-bold text-white mb-2">雲端資料自動化報表助手</h3>
+              <p class="text-sm text-slate-400 leading-relaxed">
+                整合 Google Sheets、Apps Script 與 AI 摘要功能，自動整理每日數據並發送視覺化洞察通知。
+              </p>
+            </div>
+          </div>
+          <div class="px-6 pb-6 pt-2">
+            <span class="text-xs text-slate-400">Serverless Architecture</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="mb-10">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Journey</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-1">經歷與里程碑</h2>
+      </div>
+      <div class="space-y-6 border-l-2 border-indigo-500/30 ml-3 pl-6">
+        <div class="relative">
+          <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-indigo-500 ring-4 ring-slate-900"></span>
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">AI 應用與全端獨立開發者</h3>
+              <span class="text-xs text-indigo-400 font-mono">2025 - Present</span>
+            </div>
+            <p class="text-sm text-slate-400">專注於 LLM 代理應用開發、OpenRouter 多模型串接、MCP 工具整合與互動式網頁設計。</p>
+          </div>
+        </div>
+        <div class="relative">
+          <span class="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-cyan-400 ring-4 ring-slate-900"></span>
+          <div class="glass-card rounded-2xl p-5">
+            <div class="flex flex-wrap justify-between items-center gap-2 mb-1">
+              <h3 class="font-bold text-white">前端工程與自動化流程設計師</h3>
+              <span class="text-xs text-cyan-400 font-mono">2023 - 2025</span>
+            </div>
+            <p class="text-sm text-slate-400">協助團隊建置內部自動化工具、Google Workspace 腳本開發與響應式品牌官網。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="glass-card rounded-3xl p-8 md:p-12 text-center max-w-3xl mx-auto border border-indigo-500/20">
+        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Get In Touch</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mt-2 mb-4">有合作想法或問題嗎？</h2>
+        <p class="text-slate-400 text-sm sm:text-base mb-8">
+          無論是網站開發、AI 串接專案，或是單純想交流技術，都歡迎直接點選右下角的 <strong>AI 小客服</strong> 詢問，或透過 GitHub 與我聯繫！
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <button onclick="toggleChat(true)" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition">
+            🤖 開啟右下角小客服
+          </button>
+          <a href="https://github.com/peishanhuang33" target="_blank" rel="noopener" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-sm transition">
+            GitHub (@peishanhuang33)
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-8 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>© 2026 Pei-Shan Huang. Hosted on GitHub Pages.</p>
+      <p>Powered by OpenRouter (Claude Haiku 5.5 Reasoning) & Google Apps Script</p>
+    </div>
+  </footer>
+
+  <!-- ==========================================
+       BOTTOM-RIGHT AI CHATBOT WIDGET (小客服機器人)
+       ========================================== -->
+  <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end">
+
+    <!-- Chat Window -->
+    <div id="chatWindow" class="hidden mb-4 w-[92vw] sm:w-[400px] h-[560px] max-h-[82vh] glass-card rounded-3xl shadow-2xl border border-indigo-500/30 flex flex-col overflow-hidden transition-all duration-200">
+      
+      <!-- Chat Header -->
+      <div class="px-4 py-3.5 bg-gradient-to-r from-indigo-950/90 via-slate-900/95 to-slate-900/95 border-b border-white/10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-lg shadow-md">
+            🤖
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-bold text-white">AI 智慧小客服</h3>
+              <span id="gasStatusBadge" class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                未設定網址
+              </span>
+            </div>
+            <p class="text-[11px] text-slate-400">Claude Haiku 5.5 • Reasoning Mode</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <!-- Settings Button (設定鈕) -->
+          <button id="settingsBtn" onclick="toggleSettings()" title="設定 GAS 網址" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition relative">
+            ⚙️
+          </button>
+          <!-- Clear Conversation Button -->
+          <button onclick="clearConversation()" title="清除對話紀錄" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition">
+            🗑️
+          </button>
+          <!-- Close Button -->
+          <button onclick="toggleChat(false)" title="縮小視窗" class="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Settings Drawer (設定面板 - 填入 GAS 產生的網址) -->
+      <div id="settingsPanel" class="hidden bg-slate-900/95 border-b border-indigo-500/30 p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <label for="gasUrlInput" class="text-xs font-semibold text-indigo-300 flex items-center gap-1.5">
+            <span>🔗</span> Google Apps Script (GAS) 部署網址
+          </label>
+          <button onclick="toggleSettings(false)" class="text-xs text-slate-400 hover:text-white">收起 ▲</button>
+        </div>
+        <input
+          id="gasUrlInput"
+          type="url"
+          placeholder="https://script.google.com/macros/s/.../exec"
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 focus:border-indigo-500 focus:outline-none text-xs text-slate-100 placeholder-slate-500 font-mono"
+        />
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          請貼上您部署 GAS 網頁應用程式後取得的 <code>/exec</code> 結尾網址（會自動儲存在您的瀏覽器中）。
+        </p>
+        <div class="flex items-center justify-end gap-2 pt-1">
+          <button onclick="saveGasUrl()" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition">
+            儲存網址
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages Container -->
+      <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3.5 chat-scroll bg-slate-950/40">
+        <!-- Welcome Message -->
+        <div class="flex items-start gap-2.5">
+          <div class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-sm shrink-0 mt-0.5">
+            🤖
+          </div>
+          <div class="bg-slate-800/90 border border-white/5 text-slate-200 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs leading-relaxed max-w-[85%]">
+            哈囉！我是 Pei-Shan 網站的 AI 智慧小客服 👋<br/>
+            使用前請先點選右上角 <strong>⚙️ 設定鈕</strong> 填入您的 Google Apps Script (GAS) 網址，就可以開始跟我多輪推理對話囉！
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Prompts -->
+      <div class="px-3 py-2 bg-slate-900/80 border-t border-white/5 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        <button onclick="sendQuickPrompt('請介紹一下 Pei-Shan 的技術專長與作品')" class="shrink-0 text-[11px] px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-500/30 text-slate-300 hover:text-white border border-white/5 transition">
+          👩‍💻 版主介紹
+        </button>
+        <button onclick="sendQuickPrompt('How many r\'s are in the word \'strawberry\'?')" class="shrink-0 text-[11px] px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-500/30 text-slate-300 hover:text-white border border-white/5 transition">
+          🍓 Strawberry 測試
+        </button>
+        <button onclick="sendQuickPrompt('Are you sure? Think carefully.')" class="shrink-0 text-[11px] px-2.5 py-1 rounded-full bg-slate-800 hover:bg-indigo-500/30 text-slate-300 hover:text-white border border-white/5 transition">
+          🤔 延續推理測試
+        </button>
+      </div>
+
+      <!-- Chat Input Form -->
+      <form id="chatForm" onsubmit="handleSendMessage(event)" class="p-3 bg-slate-900/95 border-t border-white/10 flex items-center gap-2">
+        <input
+          id="chatInput"
+          type="text"
+          placeholder="輸入訊息與小客服對話..."
+          autocomplete="off"
+          class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700/80 focus:border-indigo-500 focus:outline-none text-xs text-white placeholder-slate-500"
+        />
+        <button
+          id="sendBtn"
+          type="submit"
+          class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white text-xs font-semibold transition shrink-0"
+        >
+          傳送
+        </button>
+      </form>
+    </div>
+
+    <!-- Floating Robot Toggle Button -->
+    <button
+      id="chatToggleBtn"
+      onclick="toggleChat()"
+      class="group relative flex items-center gap-2.5 pl-4 pr-5 py-3.5 rounded-full bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-semibold text-sm shadow-xl shadow-indigo-600/30 hover:scale-105 active:scale-95 transition animate-float"
+    >
+      <span class="text-xl">🤖</span>
+      <span>AI 小客服</span>
+      <span class="w-2.5 h-2.5 rounded-full bg-emerald-300 ring-2 ring-white/40 animate-ping absolute -top-0.5 -right-0.5"></span>
+    </button>
+  </div>
+
+  <!-- ==========================================
+       FRONTEND SCRIPT: MULTI-TURN REASONING & GAS
+       ========================================== -->
+  <script>
+    const STORAGE_KEY_GAS_URL = 'peishan_chatbot_gas_url';
+    
+    // Conversation history preserving `reasoning_details` across turns
+    let conversationMessages = [];
+    let isWaitingResponse = false;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedUrl = localStorage.getItem(STORAGE_KEY_GAS_URL) || '';
+      const inputEl = document.getElementById('gasUrlInput');
+      if (inputEl) inputEl.value = savedUrl;
+      updateGasStatusBadge(savedUrl);
+    });
+
+    function updateGasStatusBadge(url) {
+      const badge = document.getElementById('gasStatusBadge');
+      if (!badge) return;
+      if (url && url.startsWith('https://script.google.com/')) {
+        badge.textContent = '已連結 GAS';
+        badge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
+      } else {
+        badge.textContent = '未設定網址';
+        badge.className = 'text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
+      }
+    }
+
+    function toggleChat(forceOpen) {
+      const chatWindow = document.getElementById('chatWindow');
+      const isHidden = chatWindow.classList.contains('hidden');
+      const shouldOpen = typeof forceOpen === 'boolean' ? forceOpen : isHidden;
+
+      if (shouldOpen) {
+        chatWindow.classList.remove('hidden');
+        const savedUrl = localStorage.getItem(STORAGE_KEY_GAS_URL) || '';
+        if (!savedUrl) {
+          toggleSettings(true);
+        } else {
+          document.getElementById('chatInput')?.focus();
+        }
+      } else {
+        chatWindow.classList.add('hidden');
+      }
+    }
+
+    function toggleSettings(forceState) {
+      const panel = document.getElementById('settingsPanel');
+      const isHidden = panel.classList.contains('hidden');
+      const shouldOpen = typeof forceState === 'boolean' ? forceState : isHidden;
+      if (shouldOpen) {
+        panel.classList.remove('hidden');
+        document.getElementById('gasUrlInput')?.focus();
+      } else {
+        panel.classList.add('hidden');
+      }
+    }
+
+    function saveGasUrl() {
+      const inputEl = document.getElementById('gasUrlInput');
+      const url = (inputEl?.value || '').trim();
+      if (!url) {
+        alert('請輸入有效的 Google Apps Script 網址！');
+        return;
+      }
+      localStorage.setItem(STORAGE_KEY_GAS_URL, url);
+      updateGasStatusBadge(url);
+      toggleSettings(false);
+      appendSystemNotice('✅ 已儲存 GAS 網址設定！現在可以開始對話了。');
+    }
+
+    function clearConversation() {
+      conversationMessages = [];
+      const container = document.getElementById('chatMessages');
+      container.innerHTML = '';
+      appendSystemNotice('🧹 對話紀錄與推理記憶已重置。');
+    }
+
+    function sendQuickPrompt(text) {
+      const input = document.getElementById('chatInput');
+      input.value = text;
+      handleSendMessage(new Event('submit'));
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function appendSystemNotice(text) {
+      const container = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'text-center my-1';
+      div.innerHTML = `<span class="inline-block px-3 py-1 rounded-full bg-slate-900 border border-white/10 text-[11px] text-slate-400">${escapeHtml(text)}</span>`;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendUserBubble(content) {
+      const container = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'flex justify-end';
+      div.innerHTML = `
+        <div class="bg-indigo-600 text-white rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-xs leading-relaxed max-w-[82%] whitespace-pre-wrap break-words shadow-sm">${escapeHtml(content)}</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function appendTypingIndicator() {
+      const container = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.id = 'typingIndicator';
+      div.className = 'flex items-start gap-2.5';
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-sm shrink-0 mt-0.5">🤖</div>
+        <div class="bg-slate-800/90 border border-white/5 text-slate-300 rounded-2xl rounded-tl-sm px-4 py-3 text-xs flex items-center gap-1.5">
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 typing-dot"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 typing-dot"></span>
+          <span class="ml-1 text-[11px] text-slate-400">思考推理中...</span>
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    function formatReasoningSummary(reasoningDetails, reasoningText) {
+      if (reasoningText && typeof reasoningText === 'string' && reasoningText.trim()) {
+        return reasoningText.trim();
+      }
+      if (Array.isArray(reasoningDetails) && reasoningDetails.length > 0) {
+        return reasoningDetails
+          .map(item => item.text || item.summary || JSON.stringify(item))
+          .join('\n');
+      }
+      return '';
+    }
+
+    function appendAssistantBubble(content, reasoningDetails, reasoningText) {
+      const container = document.getElementById('chatMessages');
+      const div = document.createElement('div');
+      div.className = 'flex items-start gap-2.5';
+
+      const reasoningSummary = formatReasoningSummary(reasoningDetails, reasoningText);
+      const hasReasoning = Boolean(reasoningSummary) || (Array.isArray(reasoningDetails) && reasoningDetails.length > 0);
+
+      let reasoningHtml = '';
+      if (hasReasoning) {
+        const displayReasoning = reasoningSummary || '已保留 reasoning_details 供後續多輪對話推理使用';
+        reasoningHtml = `
+          <details class="mb-2 rounded-xl bg-slate-950/70 border border-indigo-500/25 px-2.5 py-1.5 text-[11px] text-indigo-200">
+            <summary class="cursor-pointer select-none font-medium text-indigo-300">🧠 檢視模型推理狀態 (reasoning_details)</summary>
+            <div class="mt-1.5 pt-1.5 border-t border-white/10 text-slate-300 whitespace-pre-wrap font-mono text-[10px] max-h-40 overflow-y-auto">${escapeHtml(displayReasoning)}</div>
+          </details>
+        `;
+      }
+
+      div.innerHTML = `
+        <div class="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-sm shrink-0 mt-0.5">🤖</div>
+        <div class="bg-slate-800/90 border border-white/5 text-slate-100 rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs leading-relaxed max-w-[85%] break-words shadow-sm">
+          ${reasoningHtml}
+          <div class="whitespace-pre-wrap">${escapeHtml(content)}</div>
+        </div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    async function handleSendMessage(event) {
+      if (event) event.preventDefault();
+      if (isWaitingResponse) return;
+
+      const gasUrl = (localStorage.getItem(STORAGE_KEY_GAS_URL) || '').trim();
+      if (!gasUrl) {
+        toggleSettings(true);
+        appendSystemNotice('⚠️ 請先在上方設定面板填入您的 GAS 部署網址！');
+        return;
+      }
+
+      const inputEl = document.getElementById('chatInput');
+      const userText = (inputEl.value || '').trim();
+      if (!userText) return;
+
+      inputEl.value = '';
+      appendUserBubble(userText);
+
+      conversationMessages.push({
+        role: 'user',
+        content: userText
+      });
+
+      isWaitingResponse = true;
+      document.getElementById('sendBtn').disabled = true;
+      appendTypingIndicator();
+
+      try {
+        const res = await fetch(gasUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify({
+            model: 'anthropic/claude-haiku-5.5',
+            messages: conversationMessages,
+            reasoning: { enabled: true }
+          })
+        });
+
+        const data = await res.json();
+        removeTypingIndicator();
+
+        if (!data || data.error) {
+          const errMsg = data?.error?.message || data?.error || '呼叫後端失敗，請檢查 GAS 網址或 API Key 設定。';
+          appendSystemNotice('❌ 錯誤：' + errMsg);
+          conversationMessages.pop();
+        } else {
+          const assistantMsg = data.message || (data.choices && data.choices[0] && data.choices[0].message) || {};
+          const replyContent = assistantMsg.content || '(無回應內容)';
+          const reasoningDetails = assistantMsg.reasoning_details;
+          const reasoningText = assistantMsg.reasoning;
+
+          const preservedMessage = {
+            role: 'assistant',
+            content: replyContent
+          };
+          if (typeof reasoningDetails !== 'undefined') {
+            preservedMessage.reasoning_details = reasoningDetails;
+          }
+          conversationMessages.push(preservedMessage);
+
+          appendAssistantBubble(replyContent, reasoningDetails, reasoningText);
+        }
+      } catch (err) {
+        removeTypingIndicator();
+        conversationMessages.pop();
+        appendSystemNotice('❌ 無法連線至 GAS 網址，請確認網址正確且部署權限設為「所有人」。');
+        console.error(err);
+      } finally {
+        isWaitingResponse = false;
+        document.getElementById('sendBtn').disabled = false;
+        document.getElementById('chatInput')?.focus();
+      }
+    }
+  </script>
+</body>
+</html>
